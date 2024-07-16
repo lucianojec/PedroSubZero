@@ -6,19 +6,19 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity() {
     private var gameView: GameView? = null
 
-    protected fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         gameView = GameView(this)
         setContentView(gameView)
     }
 
-    protected fun onResume() {
+    override fun onResume() {
         super.onResume()
-        gameView!!.resume()
+        gameView?.resume()
     }
 
-    protected fun onPause() {
+    override fun onPause() {
         super.onPause()
-        gameView!!.pause()
+        gameView?.pause()
     }
 }

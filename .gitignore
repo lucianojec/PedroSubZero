@@ -1,15 +1,134 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/META-INF/services/**
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Log files
+*.log
+
+# OS-specific files
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
+Thumbs.db
+
+# IDEs and editors
+/.idea
+*.iml
+*.ipr
+*.iws
+*.swp
+
+# Eclipse
+.project
+.classpath
+.c9/
+.settings/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# IntelliJ IDEA
+out/
+*.ipr
+*.iws
+*.iml
+.idea/
+
+# VS Code
+.vscode/
+
+# Misc
+*.bak
+*.tmp
+*.swp
+*~.nib
+
+# Other
+*.stackdump
+*.pid
+*.seed
+*.pid.lock
+
+# Mac OS X
+*.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# Packages
+*.jar
+*.war
+*.ear
+
+# JetBrains
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Compiled binary output
+*.class
+
+# Gradle files
+.gradle
+build/
+
+# Cache files
+.gradle/
+build/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.old
+
+# Logs
+*.log
+
+# Other
+**/src/main/generated/**
+
+# Database
+*.db
+*.sqlite
+
+# JUnit
+test-output/
+
+# App-specific files
+app/build/
+app/src/androidTest/
+app/src/test/
+app/src/testMock/
+app/src/testNonMock/
+app/src/testDebug/
+app/src/testRelease/

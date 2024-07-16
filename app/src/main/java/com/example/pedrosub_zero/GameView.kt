@@ -1,6 +1,6 @@
 package com.example.pedrosub_zero
-//noinspection SuspiciousImport
-import android.R
+
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -10,37 +10,37 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 
+class GameView(context: Context) : SurfaceView(context), Runnable {
 
-class GameView(context: MainActivity) : SurfaceView(context), Runnable {
     private var thread: Thread? = null
     private var isPlaying = false
-    private val holder: SurfaceHolder = getHolder()
-    private val paint = Paint()
-    private val character: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.character)
-    private val characterX = 100
-    private var characterY: Int
-    private var characterSpeed: Int
+    private val paint: Paint = Paint()
+    private var character: Bitmap
+    private var characterX = 100
+    private var characterY = 100
+    private var characterSpeed = 10
     private var screenX = 0
     private var screenY = 0
-    private val obstacles: MutableList<Obstacle>
-    private var score: Int
+    private val obstacles: MutableList<Obstacle> = ArrayList()
+    private var score = 0
+
+    private val surfaceHolder: SurfaceHolder
 
     init {
-        characterY = 100
-        characterSpeed = 10
-        obstacles = ArrayList()
-        score = 0
+        surfaceHolder = holder
+        character = BitmapFactory.decodeResource(resources, R.drawable.character)
+            ?: throw IllegalArgumentException("Resource R.drawable.character not found!")
     }
 
     override fun run() {
         while (isPlaying) {
-            if (!holder.surface.isValid) continue
+            if (!surfaceHolder.surface.isValid) continue
 
-            val canvas = holder.lockCanvas()
+            val canvas = surfaceHolder.lockCanvas()
             canvas.drawColor(Color.WHITE)
             update()
             draw(canvas)
-            holder.unlockCanvasAndPost(canvas)
+            surfaceHolder.unlockCanvasAndPost(canvas)
         }
     }
 
@@ -56,20 +56,14 @@ class GameView(context: MainActivity) : SurfaceView(context), Runnable {
                 obstaclesToRemove.add(obstacle)
                 score++
             }
-            if (obstacle.checkCollision(
-                    characterX,
-                    characterY,
-                    character.width,
-                    character.height
-                )
-            ) {
+            if (obstacle.checkCollision(characterX, characterY, character.width, character.height)) {
                 // Game Over logic
                 isPlaying = false
             }
         }
         obstacles.removeAll(obstaclesToRemove)
 
-        if (obstacles.isEmpty() || obstacles[obstacles.size - 1].isOffScreen) {
+        if (obstacles.isEmpty() || obstacles.last().isOffScreen) {
             obstacles.add(Obstacle(screenX, screenY))
         }
     }
@@ -88,13 +82,13 @@ class GameView(context: MainActivity) : SurfaceView(context), Runnable {
     fun resume() {
         isPlaying = true
         thread = Thread(this)
-        thread!!.start()
+        thread?.start()
     }
 
     fun pause() {
         try {
             isPlaying = false
-            thread!!.join()
+            thread?.join()
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
